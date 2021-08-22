@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <property name="now" value="now(3)"/>
+
+    <changeSet id="00000000000000-1" author="fanscoin">
+        <createTable tableName="fcn_accounts">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)"/>
+            <column name="phone_number" type="varchar(30)"/>
+            <column name="country_code" type="varchar(3)"/>
+            <column name="google_email" type="varchar(255)"/>
+            <column name="activated" type="boolean" defaultValue="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_key" type="varchar(20)"/>
+            <column name="reseted_at" type="timestamp(3)"/>
+            <column name="confirmed_email" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enable_online_status" type="boolean" defaultValue="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="online_status" type="boolean" defaultValue="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_login_at" type="timestamp(3)"/>
+
+            <column name="created_by" type="varchar(255)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp(3)" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="varchar(255)"/>
+            <column name="updated_at" type="timestamp(3)"/>
+            <column name="deleted" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint tableName="fcn_accounts" columnNames="email" constraintName="unq_accounts_email"/>
+        <createIndex tableName="fcn_accounts" indexName="idx_accounts_user_id">
+            <column name="user_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="00000000000000-2" author="fanscoin">
+        <createTable tableName="fcn_roles">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(20)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="00000000000000-3" author="fanscoin">
+        <createTable tableName="fcn_account_roles">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="account_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="fcn_account_roles" indexName="idx_account_roles_account_id">
+            <column name="account_id" type="bigint"/>
+        </createIndex>
+        <createIndex tableName="fcn_account_roles" indexName="idx_account_roles_role_id">
+            <column name="role_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="00000000000000-4" author="fanscoin">
+        <createTable tableName="fcn_users">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_no" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nickname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_day" type="date"/>
+            <column name="gender" type="varchar(10)"/>
+            <column name="bio" type="text"/>
+            <column name="avatar" type="varchar(255)"/>
+            <column name="avatar_thumbnail" type="varchar(255)"/>
+            <column name="cover_image" type="varchar(255)"/>
+            <column name="number_of_subscribers" type="bigint" defaultValue="0"/>
+            <column name="number_of_subscribings" type="bigint" defaultValue="0"/>
+
+            <column name="created_by" type="varchar(255)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp(3)" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="varchar(255)"/>
+            <column name="updated_at" type="timestamp(3)"/>
+            <column name="deleted" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint tableName="fcn_users" columnNames="user_no" constraintName="unq_users_user_no"/>
+        <addUniqueConstraint tableName="fcn_users" columnNames="nickname" constraintName="unq_users_nickname"/>
+    </changeSet>
+
+    <changeSet id="00000000000000-5" author="fanscoin">
+        <loadData
+                file="config/liquibase/data/fcn_accounts.csv"
+                separator=";"
+                tableName="fcn_accounts"/>
+        <loadData
+                file="config/liquibase/data/fcn_roles.csv"
+                separator=";"
+                tableName="fcn_roles"/>
+
+        <loadData
+                file="config/liquibase/data/fcn_account_roles.csv"
+                separator=";"
+                tableName="fcn_account_roles"/>
+        <loadData
+                file="config/liquibase/data/fcn_users.csv"
+                separator=";"
+                tableName="fcn_users"/>
+    </changeSet>
+</databaseChangeLog>

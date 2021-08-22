@@ -1,0 +1,10 @@
+
+
+  ${AnsiColor.GREEN}███████╗ █████╗ ███╗   ██╗███████╗${AnsiColor.RED}  ██████╗ ██████╗ ██╗███╗   ██╗
+  ${AnsiColor.GREEN}██╔════╝██╔══██╗████╗  ██║██╔════╝${AnsiColor.RED} ██╔════╝██╔═══██╗██║████╗  ██║
+  ${AnsiColor.GREEN}█████╗  ███████║██╔██╗ ██║███████╗${AnsiColor.RED} ██║     ██║   ██║██║██╔██╗ ██║
+  ${AnsiColor.GREEN}██╔══╝  ██╔══██║██║╚██╗██║╚════██║${AnsiColor.RED} ██║     ██║   ██║██║██║╚██╗██║
+  ${AnsiColor.GREEN}██║     ██║  ██║██║ ╚████║███████║${AnsiColor.RED} ╚██████╗╚██████╔╝██║██║ ╚████║
+  ${AnsiColor.GREEN}╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝${AnsiColor.RED}  ╚═════╝ ╚═════╝ ╚═╝╚═╝  ╚═══╝
+
+${AnsiColor.BRIGHT_BLUE}:: FansCoin 🤓  :: Running Spring Boot ${spring-boot.version} ::
